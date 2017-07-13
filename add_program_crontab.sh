@@ -4,6 +4,7 @@ ajuda(){
     echo "Agendador de tarefa no crontab para o usuário corrente."
     echo 
     echo "Sintaxe: $0 '* * * * *' /PATH/programa"
+    echo "         $0 {-h | --help}"
     echo 
     echo "Informar o agendamento da seguinte forma:"
     echo " * * * * *"
@@ -37,20 +38,17 @@ case $1 in
                 exit 1
                 ;;
             *)
+                # se arquivo não existe 
                 if [ ! -e $2 ]; then
                     echo "Programa não existe"
                     exit 1
-                fi
-
-                # nome iniciado com ./ é inválido
-                if echo "$2" | egrep '\./' > /dev/null
+                # se nome iniciado com ./ é inválido
+                elif echo "$2" | egrep '\./' > /dev/null
                 then
                     echo "Nome do programa inválido, -h para ajuda"
                     exit 1
-                fi
-
                 # se não tem / no nome do programa, path recebe $PWD
-                if echo "$2" | egrep -v '/' > /dev/null
+                elif echo "$2" | egrep -v '/' > /dev/null
                 then
                     path=$PWD"/"
                 else
