@@ -3,7 +3,8 @@
 if [ -z $1 ]; then
     echo "Informe um arquivo/pasta ou -h para ajuda"
 elif [ $1 = "-h" ] || [ $1 = "--help" ]; then
-    echo "Sintaxe: rename [OPÇÃO] ARQUIVO"
+    echo "Sintaxe: $0 [ -f ] ARQUIVO"
+    echo "         $0 [ -h | --help ]"
     echo "Renomeia arquivo/pasta no formato dataAtual_nomeArqOuPasta"
     echo 
     echo "-h --help:   Ajuda"
