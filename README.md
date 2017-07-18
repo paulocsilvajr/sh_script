@@ -19,7 +19,7 @@ teste_internet.sh: Teste de conexão com a internet.
 
 ### Licença
 
-[Licença GPL](https://github.com/paulocsilvajr/instalador-programas/blob/master/license_gpl.txt), arquivo em anexo no repositório.
+[Licença GPL](https://github.com/paulocsilvajr/sh_script/blob/master/license_gpl.txt), arquivo em anexo no repositório.
 
 ### Contato
 
