@@ -15,6 +15,7 @@ install_program.sh: Instalador de programas.sh personalizado na pasta /usr/bin.
 rename_d.sh: Renomeia arquivo/pasta no formato dataAtual_nomeArqOuPasta.
 search_ip_network.sh: Ping em intervalo de rede para encontrar hosts.
 teste_internet.sh: Teste de conexão com a internet.
+servidor_apache_docker: Script para a criação de um servidor apache2 no docker. 
 ```
 
 ### Licença
