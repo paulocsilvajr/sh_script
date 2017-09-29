@@ -1,7 +1,7 @@
 #!/bin/bash
 
-DIR_BACKUP="/home/paulo/www_backup"
-DIR_DATA="/var/www"
+DIR_BACKUP="/home/paulo/pg_data_backup"
+DIR_DATA="/opt/PostgreSQL/9.6/data"
 
 ajuda(){
     echo "Script elaborado para efetuar backup de" $DIR_DATA "sem interferência humana através do cron."

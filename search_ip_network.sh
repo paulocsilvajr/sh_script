@@ -64,7 +64,7 @@ validar_ip(){
     done
 }
 
-if [ $1 == "--help" ];
+if [[ $1 = "--help" ]];
 then
     ajuda   
 fi
