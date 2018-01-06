@@ -86,16 +86,20 @@ exit 0
     # sudo service apache2 restart
 
 # Corrigir acesso negado no phpmyadmin para usuário root
+#   sudo mysql -u root
+#   mysql> USE mysql;
 #   mysql> GRANT ALL ON *.* TO 'root'@'%' IDENTIFIED BY 'SENHA' WITH GRANT OPTION;
 #   mysql> GRANT ALL ON *.* TO 'root'@'localhost' IDENTIFIED BY 'SENHA' WITH GRANT OPTION;
 #   mysql> GRANT ALL ON *.* TO 'root'@'127.0.0.1' IDENTIFIED BY 'SENHA' WITH GRANT OPTION;
+#   mysql> quit;
+#   sudo service mysql restart
 
 # RESETAR SENHA DO ROOT
 #   sudo service mysql stop
 #   sudo mysqld_safe --skip-grant-tables &  # iniciar o servico em modo de segurança
 #   sudo mysql  # ou # sudo mysql -u root
-#   mysql> use mysql;
-#   mysql> update user SET password=password('NOVA SENHA') WHERE user='root';
+#   mysql> USE mysql;
+#   mysql> UPDATE user SET password=password('NOVA SENHA') WHERE user='root';
 #   mysql> quit;
 #   sudo service mysql restart
 
