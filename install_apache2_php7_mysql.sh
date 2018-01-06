@@ -1,9 +1,25 @@
 #!/bin/bash
 
-alias apache2_php='apt install -y apache2 php7.0 libapache2-mod-php7.0'
-alias reiniciar='service apache2 restart'
-alias phpmyadmin='apt install -y phpmyadmin'
-# alias mysql definido no case, alterando de acordo com parâmentro do programa
+function apache2_php () {
+    apt install -y apache2 php7.0 libapache2-mod-php7.0
+}
+
+function reiniciar () {
+    service apache2 restart
+}
+
+function phpmyadmin () {
+    apt install -y phpmyadmin
+}
+
+# mysql definido no case, alterando de acordo com parâmentro do programa
+function mysql () {
+    # $1 aqui é o primeiro parâmetro da função, não o parâmetro do programa
+    case $1 in
+        '--mysql') apt install -y mysql-server mysql-client php7.0-mysql;;
+        *) apt install -y mariadb-server mariadb-client php7.0-mysql;;
+    esac
+}
 
 # tratamento de parâmetros
 case $1 in
@@ -12,41 +28,43 @@ case $1 in
           echo ' -h         Ajuda'
           echo ' --mysql    Instala MySQL no lugar de MariaDB'
           exit 1;;
-    '--mysql') alias mysql='apt install -y mysql-server mysql-client php7.0-mysql';;
-    *) alias mysql='apt install -y mariadb-server mariadb-client php7.0-mysql';;
 esac
 
 # verifica se o programa está sendo executado pelo ROOT("0")
 if [ "$(id -u)" != "0" ]; then
     echo 'Execute esse programa como ROOT'
+    exit 1
 else
-    echo "Iniciar instalação (S/n)? " 
-    read CONFIRMACAO 
+    echo "Iniciar instalação (S/n)? "
+    read CONFIRMACAO
 
     case $CONFIRMACAO in
         s|S|y|Y )
-                if apache2_php && reiniciar && mysql && phpmyadmin; then
+                if apache2_php && reiniciar && mysql $1 && phpmyadmin; then
 
                     # adicionando acesso ao phpmyadmin no apache
                     CONF="/etc/phpmyadmin/apache.conf"
                     ARQ="/etc/apache2/sites-enabled/000-default.conf"
-                    
+
                     # Se não existe a entrada CONF no arquivo ARQ,
                     # incrementa uma nova linha com Include e conteúdo de CONF.
                     if ! grep -q $CONF $ARQ; then
-                        echo "Include" $CONF >> $ARQ   
+                        echo "Include" $CONF >> $ARQ
                     fi
-                    
+
                     reiniciar
                     xdg-open 'http://localhost/phpmyadmin' &
 
                 fi;;
-        *) echo 'Cancelando instalação';;
+        *)
+            echo 'Cancelando instalação'
+            exit 0;;
     esac
 
 fi
 
 echo "No final desse arquivo contém instruções para correções em possíveis erros"
+exit 0
 
 # alterar diretório(padrão) da pasta www do apache
 # alterar arquivos /etc/apache2/apache2.conf
